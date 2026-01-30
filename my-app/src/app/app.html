@@ -1,2 +1,9 @@
 <div class="moon-container" style="font-family: sans-serif; text-align: center; margin-top: 50px;">
   <h1 style="font-size: 3em; margin-bottom: 0.5em;"> Moon Location Tracker</h1>
+<div *ngIf="moonData.date">
+    <p><strong>Time (UTC):</strong> {{ moonData.date }}</p>
+    <p><strong>Longitude:</strong> {{ moonData.longitude | number:'1.4-4' }}°</p>
+    <p><strong>Latitude:</strong> {{ moonData.latitude | number:'1.4-4' }}°</p>
+    <p><strong>Distance:</strong> {{ moonData.distance | number:'1.0-0' }} km</p>
+  </div>
+

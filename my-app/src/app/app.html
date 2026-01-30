@@ -6,4 +6,9 @@
     <p><strong>Latitude:</strong> {{ moonData.latitude | number:'1.4-4' }}°</p>
     <p><strong>Distance:</strong> {{ moonData.distance | number:'1.0-0' }} km</p>
   </div>
+<div *ngIf="!moonData.date" style="font-size: 1.2em; color: gray;">
+    Loading moon data...
+  </div>
+</div>
+
 

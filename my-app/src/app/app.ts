@@ -22,4 +22,13 @@ moonData: {
   ngOnInit(): void {
     this.updateMoon(); // initial update
 
+    this.zone.runOutsideAngular(() => {
+      setInterval(() => {
+        this.zone.run(() => this.updateMoon());
+      }, 1000);
+    });
+  }
+
+
+
 

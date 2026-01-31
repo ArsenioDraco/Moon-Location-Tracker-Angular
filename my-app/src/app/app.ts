@@ -10,4 +10,16 @@ import { CommonModule } from '@angular/common';
 export class App implements OnInit {
 
   RAD = Math.PI / 180;
+moonData: {
+    date?: string;
+    longitude?: number;
+    latitude?: number;
+    distance?: number;
+  } = {};
+
+  constructor(private zone: NgZone) {}
+
+  ngOnInit(): void {
+    this.updateMoon(); // initial update
+
 

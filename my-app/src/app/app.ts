@@ -59,6 +59,36 @@ moonData: {
     const F  = 93.2720950 + 483202.0175233 * T - 0.0036539 * T*T - T*T*T/3526000 + T*T*T*T/863310000;
     return { L0: L0*this.RAD, D: D*this.RAD, M: M*this.RAD, Mp: Mp*this.RAD, F: F*this.RAD };
   }
+ // ----------------------------
+  // 3. Meeus Base Model
+  // ----------------------------
+  meeusBase(args: any) {
+    const {L0, D, M, Mp, F} = args;
+    const lonMeeus = L0 + (
+      6.289 * Math.sin(Mp) +
+      1.274 * Math.sin(2*D - Mp) +
+      0.658 * Math.sin(2*D) +
+      0.214 * Math.sin(2*Mp) -
+      0.186 * Math.sin(M)
+    ) * this.RAD;
+
+    const latMeeus = (
+      5.128 * Math.sin(F) +
+      0.280 * Math.sin(Mp + F) +
+      0.277 * Math.sin(Mp - F) +
+      0.173 * Math.sin(2*D - F)
+    ) * this.RAD;
+
+    const distMeeus = 385000.56 -
+      20905.0 * Math.cos(Mp) -
+      3699.0  * Math.cos(2*D - Mp) -
+      2956.0  * Math.cos(2*D) -
+      570.0   * Math.cos(2*Mp);
+
+    return { lonMeeus, latMeeus, distMeeus };
+  }
+
+
 
 
 

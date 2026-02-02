@@ -129,6 +129,21 @@ moonData: {
     }
     return { lonELP: dLon*this.RAD, latELP: dLat*this.RAD, distELP: dDist };
   }
+ // ----------------------------
+  // 5. Final Moon Position
+  // ----------------------------
+  moonPosition(date: Date) {
+    const JD = this.julianDay(date);
+    const T = (JD - 2451545.0)/36525;
+    const args = this.getFundamentalArgs(T);
+    const base = this.meeusBase(args);
+    const elp  = this.applyELP(args);
+    const lon = base.lonMeeus + elp.lonELP;
+    const lat = base.latMeeus + elp.latELP;
+    const dist = base.distMeeus + elp.distELP;
+    return { longitude: lon*180/Math.PI, latitude: lat*180/Math.PI, distance: dist };
+  }
+
 
 
 

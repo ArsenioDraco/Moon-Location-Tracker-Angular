@@ -87,6 +87,49 @@ moonData: {
 
     return { lonMeeus, latMeeus, distMeeus };
   }
+ // ----------------------------
+  // 4. ELP Corrections
+  // ----------------------------
+  ELP_LON = [
+    [1.6769, 0,0,1,0,0],
+    [0.5160, 2,0,-1,0,0],
+    [0.4110, 0,0,2,0,0],
+    [0.1850, 2,0,1,0,0],
+    [0.1250, 2,0,0,0,0]
+  ];
+  ELP_LAT = [
+    [0.2800, 0,0,1,1,0],
+    [0.2500, 2,0,-1,1,0],
+    [0.1100, 2,0,1,-1,0]
+  ];
+  ELP_DIST = [
+    [-30.0,0,0,1,0,0],
+    [-15.0,2,0,-1,0,0],
+    [-12.0,2,0,1,0,0]
+  ];
+
+  applyELP(args: any) {
+    const {D,M,Mp,F} = args;
+    let dLon = 0, dLat = 0, dDist = 0;
+
+    for (const t of this.ELP_LON) {
+      const [A,dD,dM,dMp,dF] = t;
+      const arg = dD*D + dM*M + dMp*Mp + dF*F;
+      dLon += A * Math.sin(arg);
+    }
+    for (const t of this.ELP_LAT) {
+      const [A,dD,dM,dMp,dF] = t;
+      const arg = dD*D + dM*M + dMp*Mp + dF*F;
+      dLat += A * Math.sin(arg);
+    }
+    for (const t of this.ELP_DIST) {
+      const [A,dD,dM,dMp,dF] = t;
+      const arg = dD*D + dM*M + dMp*Mp + dF*F;
+      dDist += A * Math.cos(arg);
+    }
+    return { lonELP: dLon*this.RAD, latELP: dLat*this.RAD, distELP: dDist };
+  }
+
 
 
 

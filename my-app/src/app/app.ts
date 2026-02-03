@@ -143,6 +143,22 @@ moonData: {
     const dist = base.distMeeus + elp.distELP;
     return { longitude: lon*180/Math.PI, latitude: lat*180/Math.PI, distance: dist };
   }
+  // ----------------------------
+  // 6. Update Moon for template
+  // ----------------------------
+  updateMoon() {
+    const date = new Date();
+    const pos = this.moonPosition(date);
+
+    // Replace moonData object completely
+    this.moonData = {
+      date: date.toISOString(),
+      longitude: pos.longitude,
+      latitude: pos.latitude,
+      distance: pos.distance
+    };
+  }
+
 
 
 
